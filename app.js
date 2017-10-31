@@ -2,13 +2,14 @@ window.onload = function(){
     let httpRequest;
     let searchButton;
     let url;
+    let response;
     
     searchButton = $("#search-button");
    
     
-    searchButton.click(function(element){
+    searchButton.on("click",function(element){
         element.preventDefault();
-        url          = "request.php";
+        url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=definition";
         httpRequest  = new XMLHttpRequest();
         httpRequest.onreadystatechange = alertDef;
         httpRequest.open('GET',url);
@@ -19,11 +20,12 @@ window.onload = function(){
     function alertDef(){
         if(httpRequest.readyState === XMLHttpRequest.DONE){
             if(httpRequest.status === 200){
-                alert(response);
+                let x = httpRequest.repsonseText;
+                alert(x);
             }
         }
         else{
-            alert("READY STATE: " + httpRequest.readyState + "   --- STATUS: " + httpRequest.status);
+            //alert("READY STATE: " + httpRequest.readyState + "   --- STATUS: " + httpRequest.status);
         }
     }
 }   
