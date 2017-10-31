@@ -9,8 +9,7 @@ window.onload = function(){
     
     searchButton.on("click",function(element){
         element.preventDefault();
-        //url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=definition";
-        url            = "request.php";
+        url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=definition";
         httpRequest  = new XMLHttpRequest();
         httpRequest.onreadystatechange = alertDef;
         httpRequest.open('GET',url,true);
@@ -29,7 +28,16 @@ window.onload = function(){
             //alert("READY STATE: " + httpRequest.readyState + "   --- STATUS: " + httpRequest.status);
         }
     }
-    function callback(x){
-        alert(x);
+    
+    function callback(string){
+        alert(stripTags(string));
+    }
+    
+    function stripTags(string){
+        string = string.replace("<p>","");
+        string = string.replace("</p>","\n");
+        string = string.replace("<h3>","");
+        string = string.replace("</h3>","\n");
+        return string;
     }
 }   
