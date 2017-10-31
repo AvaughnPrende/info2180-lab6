@@ -16,4 +16,3 @@ $definition = [
 
 print "<h3>" . strtoupper($query) . "</h3>";
 print "<p>" . $definition[$query] . "</p>";
-?>
