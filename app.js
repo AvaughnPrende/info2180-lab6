@@ -2,17 +2,21 @@ let httpRequest;
 let searchButton;
 let url;
 let response;
+let searchTerm
+let fetchSearchTerm
 
 window.onload = function(){
-    searchButton = $("#search-button");
+   let searchButton = $("#search-button");
+   let searchBar    = $("#search-bar");
    
     
     searchButton.on("click",function(element){
+        searchTerm = fetchSearchTerm();
         element.preventDefault();
-        url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=definition";
+        url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=";
         httpRequest  = new XMLHttpRequest();
         httpRequest.onreadystatechange = alertDef;
-        httpRequest.open('GET',url,true);
+        httpRequest.open('GET',url + searchTerm,true);
         httpRequest.send();
         response = httpRequest.responseText;
         
@@ -28,7 +32,7 @@ window.onload = function(){
             //alert("READY STATE: " + httpRequest.readyState + "   --- STATUS: " + httpRequest.status);
         }
     }
-    
+  
     function callback(string){
         alert(stripTags(string));
     }
@@ -40,4 +44,19 @@ window.onload = function(){
         string = string.replace("</h3>","\n");
         return string;
     }
+    
+     fetchSearchTerm = function(){
+        return document.getElementById("search-bar")[0].value;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }   
