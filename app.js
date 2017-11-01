@@ -11,13 +11,12 @@ window.onload = function(){
     
     searchButton.on("click",function(element){
         element.preventDefault();
-        searchTerm   = fetchSearchTerm().toLocaleLowerCase();
+        searchTerm   = fetchSearchTerm().toLocaleLowerCase().trim();//Ignore casing and whitespace at beginning and end of string
         url          = "https://info2180-lab6-avaughnprende.c9users.io/request2.php?q=";
         httpRequest  = new XMLHttpRequest();
         httpRequest.onreadystatechange = alertDef;
         httpRequest.open('GET',url + searchTerm,true);
         httpRequest.send();
-        
     });
     
     function alertDef(){
