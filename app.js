@@ -8,9 +8,11 @@ let fetchSearchTerm
 window.onload = function(){
    let searchButton = $("#search-button");
    let searchBar    = $("#search-bar");
-   
+   let result       = $("#result");
+   let searchTerm;
     
     searchButton.on("click",function(element){
+        //alert(fetchSearchTerm());
         searchTerm = fetchSearchTerm();
         element.preventDefault();
         url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=";
@@ -18,23 +20,24 @@ window.onload = function(){
         httpRequest.onreadystatechange = alertDef;
         httpRequest.open('GET',url + searchTerm,true);
         httpRequest.send();
-        response = httpRequest.responseText;
         
     })
     
     function alertDef(){
         if(httpRequest.readyState === XMLHttpRequest.DONE){
             if(httpRequest.status === 200){
-                callback(httpRequest.responseText);
+                if(searchResultFound(httpRequest.responseText)){
+                    callback(httpRequest.responseText);
+                }
+                else{
+                    callback(searchTerm + " NOT FOUND");
+                }
             }
-        }
-        else{
-            //alert("READY STATE: " + httpRequest.readyState + "   --- STATUS: " + httpRequest.status);
         }
     }
   
     function callback(string){
-        alert(stripTags(string));
+        result.html(string);
     }
     
     function stripTags(string){
@@ -47,6 +50,10 @@ window.onload = function(){
     
      fetchSearchTerm = function(){
         return document.getElementById("search-bar")[0].value;
+    }
+    
+    function searchResultFound(string){
+        return !string.endsWith("<p></p>");
     }
     
     
