@@ -13,6 +13,16 @@ h2 {
 	color: #5cdb95;
 }
 
+h3 {
+	font-weight:bold;
+}
+
+input {
+	height: 25px;
+	width: 50%;
+	padding-right: 3px;
+}
+
 
 #title {
 	background-color: #053868;
@@ -21,7 +31,7 @@ h2 {
 
 #wrapper {
 	width : 700px;
-	height: 350px;
+	height: auto;
 	margin:auto;
 	margin-top: 40px;
 	border:3px solid black;
@@ -33,19 +43,6 @@ h2 {
 	padding-bottom: 12px;
 }
 
-input {
-	height: 25px;
-	width: 70%;
-	padding-right: 3px;
-}
-
-#search-button{
-	border-radius: 6px;
-	font-size: 24px;
-	color: #5cdb95;
-	background-color: #053868;
-}
-
 #search-output {
 	padding-left: 5px;
 	border-top: 1px solid #053868;
@@ -55,3 +52,9 @@ input {
 	font-size: 1.25em;
 }
 
+.search {
+	border-radius: 6px;
+	font-size: 20px;
+	color: #5cdb95;
+	background-color: #053868;
+}

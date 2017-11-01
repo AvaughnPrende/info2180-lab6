@@ -1,9 +1,11 @@
 let httpRequest;
+let xmlRequest;
 let searchButton;
 let url;
 let response;
 let searchTerm
 let fetchSearchTerm
+let a;
 
 window.onload = function(){
    let searchButton = $("#search-button");
@@ -12,16 +14,15 @@ window.onload = function(){
    let searchTerm;
     
     searchButton.on("click",function(element){
-        //alert(fetchSearchTerm());
-        searchTerm = fetchSearchTerm().toLocaleLowerCase();
         element.preventDefault();
-        url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=";
+        searchTerm   = fetchSearchTerm().toLocaleLowerCase();
+        url          = "https://info2180-lab6-avaughnprende.c9users.io/request2.php?q=";
         httpRequest  = new XMLHttpRequest();
         httpRequest.onreadystatechange = alertDef;
         httpRequest.open('GET',url + searchTerm,true);
         httpRequest.send();
         
-    })
+    });
     
     function alertDef(){
         if(httpRequest.readyState === XMLHttpRequest.DONE){
@@ -40,6 +41,7 @@ window.onload = function(){
         result.html(string);
     }
     
+    /*
     function stripTags(string){
         string = string.replace("<p>","");
         string = string.replace("</p>","\n");
@@ -47,6 +49,7 @@ window.onload = function(){
         string = string.replace("</h3>","\n");
         return string;
     }
+    */
     
      fetchSearchTerm = function(){
         return document.getElementById("search-bar")[0].value;
@@ -57,13 +60,35 @@ window.onload = function(){
     }
     
     
+    $("#get-all").on("click", function(element){
+        element.preventDefault();
+        url                            = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=&all=true";
+        xmlRequest                     = new XMLHttpRequest();
+        xmlRequest.onreadystatechange  = displayAllDefinitions;
+        xmlRequest.open('GET',url,true);
+        xmlRequest.send();
+        
+    });
     
+    function displayAllDefinitions(){
+        if(xmlRequest.readyState === XMLHttpRequest.DONE){
+            if(xmlRequest.status === 200){
+                result.empty();
+               createList();
+            }
+            else{
+            }
+        }
+    }
     
-    
-    
-    
-    
-    
-    
-    
-}   
+    function createList(){
+        let definitions = xmlRequest.responseXML.querySelectorAll("#result");
+        for(let i=0;i<definitions.length;i++){
+            let defData  = definitions[i].textContent;
+            let defTerm  = definitions[i].getAttribute("name").toLocaleUpperCase();
+            let author   = definitions[i].getAttribute("author");
+            let content  = $(`<h3>${i+1}. ${defTerm}</h3><p>${defData}<br>-- ${author}</p>`);
+            result.append(content);
+        };
+    }
+};
