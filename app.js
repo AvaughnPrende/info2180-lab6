@@ -30,7 +30,7 @@ window.onload = function(){
                     callback(httpRequest.responseText);
                 }
                 else{
-                    callback(searchTerm + " NOT FOUND");
+                    callback("'" + searchTerm +  "'" + " NOT FOUND");
                 }
             }
         }
