@@ -13,7 +13,7 @@ window.onload = function(){
     
     searchButton.on("click",function(element){
         //alert(fetchSearchTerm());
-        searchTerm = fetchSearchTerm();
+        searchTerm = fetchSearchTerm().toLocaleLowerCase();
         element.preventDefault();
         url          = "https://info2180-lab6-avaughnprende.c9users.io/request.php?q=";
         httpRequest  = new XMLHttpRequest();
